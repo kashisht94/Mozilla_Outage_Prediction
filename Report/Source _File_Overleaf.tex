@@ -1,0 +1,502 @@
+%
+% IEEE Transactions on Microwave Theory and Techniques example
+% Tibault Reveyrand - http://www.microwave.fr
+%
+% http://www.microwave.fr/LaTeX.html
+% ---------------------------------------
+
+
+
+% ================================================
+% Please HIGHLIGHT the new inputs such like this :
+% Text :
+%  \hl{comment}
+% Aligned Eq. 
+% \begin{shaded}
+% \end{shaded}
+% ================================================
+
+
+
+\documentclass[journal]{IEEEtran}
+
+%\usepackage[retainorgcmds]{IEEEtrantools}
+%\usepackage{bibentry}  
+\usepackage{xcolor,soul,framed} %,caption
+
+\colorlet{shadecolor}{yellow}
+% \usepackage{color,soul}
+\usepackage[pdftex]{graphicx}
+\graphicspath{{../pdf/}{../jpeg/}}
+\DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+
+\usepackage[cmex10]{amsmath}
+%Mathabx do not work on ScribTex => Removed
+%\usepackage{mathabx}
+\usepackage{array}
+\usepackage{mdwmath}
+\usepackage{mdwtab}
+\usepackage{eqparbox}
+\usepackage{url}
+
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+%\bstctlcite{IEEE:BSTcontrol}
+
+
+%=== TITLE & AUTHORS ====================================================================
+\begin{document}
+\bstctlcite{IEEEexample:BSTcontrol}
+    \title{Internet Downtime Prediction Analysis using Machine Learning}
+  \author{Bhavik Patel, Kashish Thakur,  Poojan Gagrani, Yuti Khamker
+
+Department of Applied Data Science, San Jose State University}
+  
+   
+      
+      
+   
+
+ 
+
+% <-this % stops a space
+% <-this % stops a space
+
+
+
+
+
+% ====================================================================
+\maketitle
+
+
+
+% === ABSTRACT ====================================================================
+% =================================================================================
+\begin{abstract}
+%\boldmath
+The project addresses the difficulty of forecasting internet outages by utilizing the Mozilla Network Outages telemetry Data. Through the use of a variety of machine learning techniques, such as Decision Tree, Random Forest, Support Vector Machine (SVM), and XGBoost, this work advances the field of network reliability. This strong ensemble model demonstrated its efficacy in forecasting internet failures with an astounding 96.28\% accuracy and 96\% F1 score. With tools to predict and reduce downtime, this study marks a major advancement in proactive network management and improves customer satisfaction and internet connection stability. Through the analysis of large-scale data sets, the initiative pinpoints the primary causes of outages, offering insightful information for enhancing the efficiency and stability of internet service. With its four classes—"Good," "Bad," "Moderate," and "Worse"—this research not only advances the technical field of network management but also has wider ramifications for consumers and businesses that depend on constant internet connectivity. In this case, the study offers a consoling application that predicts internet outage information given time, country, and city.
+\end{abstract}
+
+
+% === KEYWORDS ====================================================================
+% =================================================================================
+\begin{IEEEkeywords}
+Machine Learning Techniques, Predict Downtime, Customer Satisfaction.
+\end{IEEEkeywords}
+
+
+
+
+
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+\IEEEpeerreviewmaketitle
+
+
+% ====================================================================
+% ====================================================================
+% ====================================================================
+
+
+
+
+
+
+
+
+
+
+
+% === I. INTRODUCTION =============================================================
+% =================================================================================
+\section{Introduction}
+
+\textbf{}
+The Internet today plays a crucial role in the professional, personal, and political lives of millions of people globally. Financial transactions, corporate operations, and many other applications rely on the high availability and performance of this vital, rapidly changing, exceedingly diverse, and mostly opaque network environment. However, like any other vital infrastructure, this one trillion-dollar communication system faces disruptions. Internet outages are unavoidable, frequent, transparent, expensive, and poorly understood. They are unavoidable since a flawless system is not achievable in practice because concerns and risks cannot be totally avoided, or their prevention is financially impractical\cite{aceto2018comprehensive}.
+
+Outages are common: there are persistent reach ability difficulties involving about 10,000 different prefixes in just three weeks of monitoring, with one in every five of the problems lasting more than 10 hours.\cite{katz2008studying} Even though the Internet has shown to be very resilient to localized disruptions, Internet outages can nevertheless leave huge sections of the population without a network connection for short or long periods depending on their severity.\cite{perlin2012downtime}
+
+A thorough understanding of Internet failures is critical for bolstering this infrastructure's function as the world's communication substrate. As the Internet becomes the foundation for new physical-world-related applications such as Cyber-Physical Systems and the Internet of Things this becomes increasingly vital. To ensure a favorable future evolution of this communication system, researchers and network operators must properly grasp how to avoid, detect, and alleviate Internet disruptions. Preventing network disruptions is the greatest way to ensure the high availability of Internet-based services and applications. Simultaneously, rapid and accurate detection of an ongoing outage is a vital preparatory step in initiating effective countermeasures, the primary goal of which is to reduce the impact of the outage as perceived by final users as much as possible. All of these essential processes, however, necessitate a thorough understanding of Internet outages.
+
+\subsection {Problem Statement}
+The study aims to utilize the metrics curated by the company and develop machine learning models that will be able to predict the service downtime so that the company can efficiently manage services and reduce the downtime thus eventually improving customer satisfaction and further reducing the customer attrition rate. Internet outages and shutdowns around the world. Additionally, our study plans to employ Feature Engineering, a cutting-edge technique, to extract valuable data from the gathered data set. These results may serve to reveal some obscure, undetected patterns that could be utilized to mitigate any future outages.
+
+\subsection {Project Background}
+The Internet has become a substantial part of our lives, Almost every industry relies on the Internet and its services to carry out daily tasks. Internet service providers are responsible for providing services for accessing, using, managing, or participating in the Internet. Internet service providers have encountered a significant increase in competition in their industry. The source of data is the telemetry dataset owned by Mozilla. It consists of the aggregated metrics that correlate to internet outages for different countries in the world. 
+The study will perform a thorough analysis of the Outage Events which will require significant amounts of data from multiple sources that will be pre-processed to get the desired results. It will then include the identification of some useful features for the study, which will be chosen using the Feature Engineering technique. The project will include five different machine learning (ML) approaches Logistic Regression, K-Nearest Neighbor, Support Vector Machine, Random Forest, and XGBoost which will be combined into a single Ensemble model. The results of the integrated model will be evaluated based on the prediction results. The major aim of this project is to build a model that provides the best prediction results in terms of Precision, Accuracy, and Recall.
+
+Methodology. The development and deployment of advanced machine learning models can achieve enhanced accuracy in predicting outage durations. This not only helps to reduce downtime but also lowers costs for businesses and Internet service providers (ISPs).
+
+\section{Related Work}
+
+Before starting the planning process, it is a good idea to conduct some literature reviews. A literature review provides a clear picture of the project's breadth and assists in exploring different avenues and novel concepts. As a result, the group conducted a literature review using a small number of study articles.
+
+Xu, Yu et al. (2021) examined the analysis and prediction of outage probability (OP) in mobile IoT networks, vital for ensuring reliable communication in complex urban environments. It validates the analysis using Monte-Carlo simulation, deriving accurate closed-form OP expressions. The study introduces an improved grey wolf optimization (IGWO) algorithm combined with an Elman neural network for OP prediction, named IGWO-Elman. This method enhances the forecasting accuracy of OP in mobile IoT networks.\cite{xu2021intelligent}
+
+Basikolo et al. (2023) proposed an SVR model, that can swiftly predict the occurrence of a network failure event within the next ten minutes with an f1-score exceeding 0.9 in just ten seconds.\cite{article}
+
+Yadwad et al. (2022) suggested that Hidden Markov Models are very effective because, in comparison to other prediction strategies, employing this probabilistic approach increases prediction accuracy.\cite{yadwad2022fault}
+
+Chen et al. (2019) proposed an intelligent outage management system called AirAlert, which predicts and diagnoses outages in cloud systems to enhance system availability and user experience. It monitors the entire cloud system, collecting alert signals and detecting dependencies to proactively predict outages. Utilizing Bayesian networks for analysis and gradient boosting trees for prediction, AirAlert efficiently forecasts outages. Its effectiveness is confirmed through evaluation with a dataset from a Microsoft cloud system.\cite{chen2019outage}
+
+Evang et al., 2022 performed a study to better understand network failures, this article focuses on small operators, who frequently have resource constraints that make troubleshooting difficult. Analysis of outages in a small, superior service network over two years is part of the study. It suggests a low-risk, low-effort machine learning model created especially for outage classification. For Layer 2 difficulties, the model uses passive Bidirectional Forwarding Detection (BFD) data; for other problems, it uses active packet loss data. With Layer2 faults detected with 99% accuracy and other issues ranging from 40% to 100%, the classification accuracy is noteworthy. This method greatly increases the efficiency of troubleshooting, especially considering that in the study, customer service only responded to 35% of customer concerns with a Reason for Outage (RFO).
+\cite{evang2022crosslayer}
+
+
+\section{Process Model }
+{Crisp-DM Approach}: The most popular methodology that is used for all data science projects is CRISP-DM. There are six stages to it. Working on the phases in this methodology typically allows us to switch between them. However, as Figure 1 illustrates, we used a hybrid waterfall and CRISP-DM model for this project. The waterfall model's main benefit is that it offers a precisely defined route for approaching a problem statement. The team can schedule the length and specifics of each phase by using this method. The following provides descriptions of each of the six phases and the topics covered in each phase.
+% === III. Process Model=======================================
+% =================================================================================
+% === CRISP-DM diagram
+
+\begin{figure}[ht!]
+   \centering
+  \includegraphics[width=3.0in]{pdf/s4.pdf}
+  \vspace{-20pt}
+  \caption{CRISP-DM Methodology}
+\end{figure}
+% =================================================================================
+\subsection {Business Understanding}
+\textbf{ }Throughout this stage, the group talked about different project concepts and goals. To ensure that a solid project with specific goals should be developed from it, each member offered suggestions and performed a literature review. Everyone expressed interest in different machine learning techniques that they potentially wanted to implement in the project. Following the selection of the project topic, each person was given the task of conducting a variety of literature reviews to gain a better understanding of the potential solutions, including what can be accomplished, how, why, and what technologies to use. The group has also produced a data mining strategy that is foolproof.
+
+\subsection {Data Understanding}
+In this stage, the data was first gathered. Obtaining the project's data from a reliable and authentic source is crucial. It can be useful for real-time applications and aids in more accurate solutions. The data was obtained from Mozilla under the Mozilla Network Outages telemetry Data project, which comes from a reliable source and is accessible on from Mozilla project website. 
+
+\subsection {Data Preparation}
+During this stage, We carried out a thorough exploratory data analysis once the dataset was gathered to ensure the data integrity and understand data significance and how it can be aligned with our project. After everything was finished, including the other data quality checks and the nulls check. All pre-processing operations were carried out, including feature selection and labeling, the categorical columns were encoded and continuous features were scaled. After all the preprocessing was done only relevant features were selected using feature selection and correlation matrix with the target feature. Eventually, the data was split into train and test sets using the standard 80:20 ratio. Finally, the SMOTE was implemented to balance the target class labels on the training set.
+
+\subsection{Model Development}
+\textbf{ } The model implementation was performed during this phase. In this stage, several machine-learning models, including Random Forest, Decision Tree, XGBoost, and SVM, were put into practice. With the help of the models, a prediction system was implemented and the results were thoroughly analyzed. We also implemented multiple ensemble models to obtain the synergy of the best-performing models to establish a foolproof and solid system.
+
+\subsection{Model Evaluation}
+\textbf{ } In this stage, the accuracy of each model was contrasted with the others. Diverse technologies such as a confusion matrix were employed to execute these models. The goal of implementing l these technologies into practice was to determine which method would yield the best accuracy and how to increase it so that the group could create a highly accurate suggested system. XGBoost outperformed all other models in this phase, achieving an accuracy of 96.2\%, which is respectable for a good solution.
+
+\subsection{Deployment}
+\textbf{ } Ultimately, the front end was made using the Python function following the model modeling phase. A small application was built that was able to predict the internet outage condition based on the Country, City, and Datetime input provided by the user.
+
+\section{Data Quality Report}
+\subsection {Continuous Feature}
+The data quality report that is supplied provides information on a number of metrics, including aborts, timeouts, and other network-related events. The datasets are usually large, with each one containing one million observations. This dataset is essentially complete because there is very little missing data. Cardinality fluctuates between metrics, suggesting a wide range of results and quantifications. Each metric's minimum, quartile 1 (25th percentile), mean, median (50th percentile), quartile 3 (75th percentile), maximum, and standard deviation are included in the report's descriptive statistics. These statistics shed light on the distribution and variability of the data; the standard deviation, in particular, highlights consistency or variability within each metric by indicating the degree to which the values deviate from the mean.
+\begin{figure}[ht!]
+  \raggedright
+  \includegraphics[width=3.5 in]{pdf/s27.pdf}
+  \vspace{-10pt}
+  \caption
+  {Data Quality report for Continuous feature }
+\end{figure}
+\subsection {Categorial Feature}
+Two variables—country and city—are reported in the categorical data quality report. The country has 999,489 non-missing records with a missing rate of 0.0511\% , while the city is complete. The national data displays 196 distinct values, with the US showing up as the most frequent (mode) at 19.0421\% \ of the time, followed by Germany (DE) and France (FR) in that order. With 6,258 unique values, the city variable exhibits greater diversity; however, the most common entry is "unknown," which is followed by much less frequent entries from particular cities like Cambridge and London. This suggests that the city data is widely distributed and has a high degree of variability in its frequency distribution.
+\begin{figure}[ht!]
+  \raggedright
+\includegraphics[width=3.5 in]{pdf/s28.pdf}
+  \vspace{-10pt}
+  \caption{Data Quality report for Categorical Feature}
+\end{figure}
+To identify the most
+\section{Data Preparation}
+This phase involves different initial steps to be performed to prepare the data for model training. Initial data Exploration, Data pre-processing, and Data Transformation.
+
+\subsection {\textit{Data Exploration}}
+Initial data Exploration was performed to check for anomalies in our dataset and to get to know the target feature. To identify the target feature, Figure 4 of histograms were plotted to determine the distribution of continuous features present in our dataset. It depicts that most values range between 0 to 1 and if any value exceeds 1 then it could be a possible outlier. However, avg\_tls\_handshake\_time, avg\_dns\_success\_time, and avg\_dns\_failure\_time have much higher values present the reason behind this is that they are recorded in milliseconds and could be transformed if required.
+\begin{figure}[ht!]
+  \raggedright
+  \includegraphics[width=3 in]{pdf/S5.pdf}
+  \vspace{-60pt}
+  \caption{Histogram to identify the target feature}
+\end{figure}
+
+To identify the most common countries and cities in the dataset and to analyze the categorical features in the dataset, the bar plot in Figure 5 displays the count of data points of the top 15 countries and cities. It shows the the count of data points of top 15 countries and cities, where the country with maximum count is United States and the city with maximum count are the countries which are generalized.
+  \begin{figure}[ht!]
+  \raggedright
+  \includegraphics[angle=270,width=3.0in]{pdf/S6.pdf}
+  \vspace{-45pt}
+  \caption{Bar Chart to Display Countries and Cities}
+\end{figure}
+
+The heat-map below in Figure 6 is used to understand the correlation between continuous features in the data set. We can see that most of the features have a positive correlation.
+\begin{figure}[ht!]
+  \raggedright
+  \includegraphics[angle=270,width=3in]{pdf/S7.pdf}
+  \vspace{-10pt}
+  \caption{Correlation Matrix for continuous feature}
+\end{figure}
+
+
+\subsection {Data  Pre-Processing}
+Cleaning the data is an essential part of the entire process. In this step, we go on to identify the null values and observe that column Country had 246 null values. Other columns such as missing\_dns\_success, avg\_dns\_failure\_time, missing\_dns\_failure, missing dns\_failure, count\_dns\_failure, ssl\_error\_prop, avg\_tls\_handshake\_time has missing values. Figure 5 gives information about the null value count before dropping it and Figure 7 shows the removal of null values.
+\begin{figure}[ht!]
+  \raggedright
+  \includegraphics[angle=0,width=2in]{pdf/null2.pdf}
+  \vspace{-10pt}
+  \caption{Identifying the null values}
+\end{figure}
+\begin{figure}[ht!]
+  \raggedright
+  \includegraphics[angle=0,width=3in]{pdf/null vaues.pdf}
+  \vspace{-10pt}
+  \caption{After removing null values}
+\end{figure}
+\subsection {Data Transformation}
+
+\textbf{Define time slots}
+An hour of the day is classified by the get\_detailed\_time\_slot function into one of seven descriptive time slots: 'Early Morning' (06-09), 'Late Night' (00-06), 'Early Afternoon' (12-15), 'Late Afternoon' (15-18), 'Early Evening' (18-21), or 'Night' (21-00). Predefined hour ranges are used for this classification, with each time slot representing a distinct 24-hour period. Figure 9 shows that time\_slot columns contain categorical values of time slots.
+\begin{figure}[ht!]
+  \raggedright
+  \includegraphics[angle=0,width=3in]{pdf/s8.pdf}
+  \vspace{-10pt}
+  \caption{Defining Time Slot}
+\end{figure}
+
+\textbf{Data Descritization.}
+Initially, a 'composite\_score' is generated for every dataframe entry, which is the sum of multiple predefined internet quality indicators. This allows for classification to be done. The standardization of this score ensures that every feature contributes equally to the score, irrespective of its variation or scale, by subtracting the mean and dividing by the standard deviation of each feature. A labeling function divides the internet quality into four categories: "good," "moderate," "bad," and "worse." It does this by comparing each score to the 25th, 50th, and 75th percentiles. Figure 10 shows composite\_score, and quality\_label are generated as a target feature.  
+
+\begin{figure}[ht!]
+  \raggedright
+  \includegraphics[angle=0,width=2.5in]{pdf/s9.pdf}
+  \vspace{-10pt}
+  \caption{Class Labeling\textbf{ }}
+\end{figure}
+
+\textbf{Feature Selection using RFE.}
+To find the most significant predictors for a target variable, a feature selection technique called Recursive Feature Elimination (RFE) is applied. The outcome of RFE, when combined with a Random Forest Classifier, is displayed in Figure 11  as the top 10 attributes that are most important for predicting the quality of internet connection.
+
+\begin{figure}[ht!]
+  \raggedright
+  \includegraphics[angle=0,width=3.5in]{pdf/s10.pdf}
+  \vspace{-10pt}
+  \caption{\textbf{ }Importance of Features to select as Predictor Features }
+\end{figure}
+
+\textbf{Label Encoding.}
+Each unique category value in the column is given a unique number by the label encoding for "country" and "city." Label encoding has the benefit of being easy to use and effective when managing categorical data. The time slots of the day are represented in an ordered sequence (morning, afternoon, evening) by the Ordinal Encoding for 'time\_slot'. Data can maintain its inherent sequence, such as the times of day, by employing ordinal encoding. This is important for models in which the order affects predictions, as shown in Figure 12.
+
+\begin{figure}[ht!]
+  \raggedright
+  \includegraphics[angle=0,width=3in]{pdf/s11.pdf}
+  \vspace{-10pt}
+  \caption{\textbf{ }Label Encoding on Categorical and Ordinal Encoding on Continuous Feature}
+\end{figure}
+
+\textbf{Splitting and scaling continuous and categorical features.}
+The data set is split data set into train, validation, and test into 80-10-10 ratios respectively. To make large numerical values small, data scaling was performed on training data and then transformed the scaled values to validation and test data to avoid data leakage. Figure 13 shows the result of splitting and scaling of the training data, and similar sampling of test and validation data. Once the data was scaled, to balance the data, the project utilized the SMOTE technique to handle imbalanced data, which significantly helped improve the model performance.  The class distribution after SMOTE: 0:19998, 1:19998, 2:19998, and 3:19998.
+
+\begin{figure}[ht!]
+  \raggedright
+  \includegraphics[angle=0,width=3.5in]{pdf/s12.pdf}
+  \vspace{-10pt}
+  \caption{\textbf{ }Sample Scaled Traning data}
+\end{figure}
+
+\section{Evaluation Metric} 
+\subsection {Accuracy}
+One of the most often used evaluation metrics for nearly all machine learning models is accuracy. Accuracy is determined by dividing the total number of predictions by the number of correct predictions. The capacity of the model to accurately forecast the result is referred to as accuracy. Here, it's the opinions expressed by users in their reviews. A higher accuracy indicates that the model is better able to identify the category that a particular review belongs to.
+\begin{figure}[ht!]
+  \raggedright
+  \includegraphics[angle=0,width=2 in]{pdf/s30.pdf}
+  \vspace{-10pt}
+  \caption{\textbf{ }Formual to calculate model accuracy}
+\end{figure}
+\subsection {Precision}
+The precision of the model denotes its capacity to accurately predict the value with accuracy. It distinguishes between the real positives and the false positives that the model predicted. Increased precision enables the model to distinguish between true positives and false positives. True positives/(True positives + False Positives) is one way to calculate it.
+
+\begin{figure}[ht!]
+  \raggedright
+  \includegraphics[angle=0,width=1.5 in]{pdf/s31.pdf}
+  \vspace{-10pt}
+  \caption{\textbf{ }Formual to calculate precision}
+\end{figure}
+\subsection {Recall}
+The model's capacity to determine true positives among all other possible instances is how the recall is determined. True Positive/(True Positive + False Negative) is the formula used to calculate it.
+\begin{figure}[ht!]
+  \raggedright
+  \includegraphics[angle=0,width=1.25 in]{pdf/s32.pdf}
+  \vspace{-10pt}
+  \caption{\textbf{ }Formual to calculate recall}
+\end{figure}
+\subsection {F1 Score}
+The F1 score provides information on how Precision and Recall are balanced. This implies that it takes into account all of the true positives as well as all of the correctly predicted positive instances. The formula used to calculate it is 2*(Precision*recall)/(Precision + Recall).
+
+\begin{figure}[ht!]
+  \raggedright
+  \includegraphics[angle=0,width=2 in]{pdf/s33.pdf}
+  \vspace{-10pt}
+  \caption{\textbf{ }Formula to calculate F1 Score}
+\end{figure}
+
+\section{Model Development} 
+\subsection {Support Vector Machine (SVM)}
+The provided code sample explains how to use a Linear Support Vector Classifier (LinearSVC) from the scikit-learn toolkit to create a machine learning model. Different values of the hyperparameter C, which regulates the SVM algorithm's regularization strength, are used to train and assess this model. In this case, the model is trained using just one C value (0.1). Accuracy on both the training set (to gauge how well the model has learnt) and a different validation set (to gauge the model's generalization to unknown data) are used to evaluate the model's performance.  This method helps to optimize outcomes by adjusting the hyperparameters and provides insight into how regularization affects the model's performance. Accuracy for C=0.1: Training = 72.10 percent, Validation = 72.31 percent, and Test Accuracy = 71.80 percent.
+
+\begin{figure}[ht!]
+  \raggedright
+  \includegraphics[angle=0,width=3in]{pdf/s13.pdf}
+  \vspace{0pt}
+  \caption{\textbf{ }SVM Classification Report}
+\end{figure}
+According to the classification report shown in the Figure 18, the model does a good job of recognizing classes 0 and 3, but it performs poorly in properly predicting classes 1 and 2, as seen by their low precision and f1-scores. The macro and weighted averages for precision, recall, and f1-score are approximately 0.57 and 0.47, respectively, indicating the model's limited efficacy across all classes. The model's overall accuracy is 0.56.
+
+
+\subsection {Decision Tree}
+Using Python's scikit-learn module, a Decision Tree Classifier is a machine learning approach for classification tasks. To minimize problems resulting from class imbalance, the classifier is trained on a dataset that has been balanced using SMOTE. It is configured with a fixed random state to guarantee reproducibility.  measures including accuracy, precision, recall, and the f1-score can be used to quantitatively evaluate the model's efficacy after training. These measures offer distinct perspectives on the predictive capability of the model and its likelihood of producing accurate classifications in real-world applications.
+Classification Report.
+
+\begin{figure}[ht!]
+  \raggedright
+  \includegraphics[angle=0,width=3in]{pdf/s14.pdf}
+  \vspace{0pt}
+  \caption{\textbf{ }Decision Tree Classification Report}
+\end{figure}
+
+According to the classification report in Figure 19, the Decision Tree model performed well in terms of prediction and balanced support across classes, as seen by the high precision, recall, and f1-scores it earned for all three classes (0–3). These values were primarily above 0.90. The model's overall accuracy of 0.94 indicates that it performs consistently well over a range of classes and is consistent with both the macro and weighted averages. This shows that the model is well-tuned and that the data, which are probably balanced, have made it possible for the model to generalize well.
+
+\subsection {Random Forest}
+To assess how tree depth affects accuracy, the model initializes a number of Decision Tree classifiers as well as a Random Forest classifier. To guarantee repeatable outcomes, the Random Forest is trained first, maintaining a constant random state. Next, on a validation set, Decision Tree classifiers with different depths (1 to 30) are trained and evaluated for accuracy. Plotting this accuracy against tree depth is a critical step in reducing overfitting and underfitting by determining the ideal model complexity that strikes a balance between fit and generalization. Plotting Decision Tree Accuracy vs Tree Depth provides a visual representation of this analysis and helps determine the ideal tree depth for the model.
+
+\begin{figure}[ht!]
+  \raggedright
+  \includegraphics[angle=0,width=3in]{pdf/s15.pdf}
+  \vspace{0pt}
+  \caption{\textbf{ }Random forest Classification Report}
+\end{figure}
+Figure 20 shows excellent precision, recall, and f1-scores for all classes shown in the Random Forest classification report; these values approach 0.96 or higher, indicating a highly accurate model. The weighted averages, macro, and overall accuracy of 0.97 highlight the model's reliable and efficient operation in every class. The well-generalized and dependable predictions of the model are confirmed by the balanced support among the classes. The algorithm's accuracy line graph is shown in Figure 21
+\begin{figure}[ht!]
+  \raggedright
+  \includegraphics[angle=0,width=3in]{pdf/s16.pdf}
+  \vspace{0pt}
+  \caption{\textbf{ }Random forest Accuracy Line graph}
+\end{figure}
+\subsection {XGBoost}
+The approach entails training an XGBoost classifier, a potent machine learning technique that generates a sequential ensemble of decision trees via the gradient boosting framework. To maintain it to be reproducible, the classifier is started with a predetermined random state. It is then trained on data that has undergone SMOTE re-sampling to correct for class imbalance. The same SMOTE-enhanced data is also used to train a sequence of Decision Tree classifiers with increasing tree depths (from 1 to 30) after the XGBoost training. The accuracy of the Decision Tree is calculated on a different validation set for each depth.
+\begin{figure}[ht!]
+  \raggedright
+  \includegraphics[angle=0,width=3in]{pdf/s17.pdf}
+  \vspace{0pt}
+  \caption{\textbf{ }XG Boost Classification Report}
+\end{figure}
+Figure 22  shows the model's high accuracy and well-balanced performance are demonstrated by the exceptional precision, recall, and f1-scores for all classes in the XGBoost classification report, which are all near or at 0.97 and above. With macro and weighted averages likewise at 0.98 and an overall model accuracy of 0.98, it is clear that the model is very effective in all classes and has a great generalization capacity. The model's consistency in class prediction is further demonstrated by the equal support for every class.
+
+\section{Ensemble Models}
+
+\subsection {Ensemble Model 1 (Decision tree, Random Forest, XGBoost)}
+A decision tree, a random forest, and an XGBoost model were among the previously trained machine learning models that were first imported using joblib from their corresponding saved files. Subsequently, the predictions from each model are aggregated and merged into a voting ensemble classifier. 'Hard' voting involves averaging the probability estimates from each model (if supported by each classifier), whereas 'soft' voting uses the majority vote from the models. After building this ensemble model, the training accuracy was 100 percent, validation accuracy 97.37 percent, and test accuracy 97.28 percent. Figure 23 shows the training and validation accuracy plot.
+\begin{figure}[ht!]
+  \raggedright
+  \includegraphics[angle=0,width=3in]{pdf/s18.pdf}
+  \vspace{0pt}
+  \caption{\textbf{ }Ensemble Model 1 Accuracy Bar Graph of Training and Validation}
+\end{figure}
+
+Figure 24 confusion matrix plots the true vs expected labels to illustrate how well a classification model is performing. The model is very accurate for all classes, according to this matrix, with the majority of predictions falling along the diagonal, suggesting accurate classifications.
+\begin{figure}[ht!]
+  \raggedright
+  \includegraphics[angle=0,width=3in]{pdf/s19.pdf}
+  \vspace{0pt}
+  \caption{\textbf{ }Ensemble Model 1 Confusion Matrix}
+\end{figure}
+
+Figure 25 demonstrates that the model performs accurately and consistently, with high recall, precision, and f1-scores, all of which are near or at 0.96 and above for every class. As evidenced by the weighted averages and macro, the overall accuracy is 0.97, indicating that the model consistently performs well for all class predictions.
+
+\begin{figure}[ht!]
+  \raggedright
+  \includegraphics[angle=0,width=3in]{pdf/s20.pdf}
+  \vspace{0pt}
+  \caption{\textbf{ }Ensemble Model 1 Classification Report}
+\end{figure}
+\subsection {Ensemble Model 2 (SVM, Decision tree, Random Forest, XGBoost)}
+The models that are imported are saved versions of an SVM classifier using joblib, an XGBoost, a decision tree, and a random forest. These models are then combined and employed in a Voting Classifier, which uses "hard" (majority vote) voting to aggregate the predictions and arrive at a final judgment. Accuracy for training, validation, and testing is 99.98 percent, 96.31 percent, and 96.28 percent respectively. Figure 26 shows bar graph of training and validation accuracy.
+\begin{figure}[ht!]
+  \raggedright
+  \includegraphics[angle=0,width=3in]{pdf/s21.pdf}
+  \vspace{0pt}
+  \caption{\textbf{ }Ensemble Model 2 Accuracy Bar Graph of Training and Validation}
+\end{figure}
+
+Figure 27 shows numbers on the diagonal (2486, 2394, 2302, and 2448 for classes 0–3, respectively) and the lower numbers in the off-diagonal cells in the confusion matrix for the set of validation results show strong model performance with the majority of predictions being correct.
+
+\begin{figure}[ht!]
+  \raggedright
+  \includegraphics[angle=0,width=3in]{pdf/s23.pdf}
+  \vspace{0pt}
+  \caption{\textbf{ }Ensemble Model 2 Confusion Matrix
+  }
+\end{figure}
+With scores ranging from 0.94 to 0.98, figure 28 shows strong recall, precision, and F1-scores for every class, suggesting a very accurate model. The model consistently performs well in all classes, as evidenced by the 0.96 overall accuracy and macro and weighted averages.
+\begin{figure}[ht!]
+  \raggedright
+  \includegraphics[angle=0,width=3in]{pdf/s24.pdf}
+  \vspace{0pt}
+  \caption{\textbf{ }Ensemble Model 2 classification report}
+\end{figure}
+
+
+\section{Results and Discussion}
+Between Ensemble Models 1 and 2, Ensemble Model 1 may perform better since it makes effective use of the advantages of decision trees, random forests, and XGBoost. These three tree-based methods are good at capturing non-linear patterns; when combined, they probably make up for each other's errors and produce a strong model. The simplicity of decision trees, the group structure of random forests, and the potent gradient boosting of XGBoost—when combined and optimized—may be advantageous for Ensemble Model 1. However, Ensemble Model 2 has an SVM in addition to the other three models. SVMs may not integrate as well with tree-based algorithms in an ensemble, which could result in algorithmic disparity and a dilution of the ensemble impact.  Additionally, the complexity and training duration of SVMs may be influencing the ensemble's overall synergy and contributing to the slightly longer training period, which could lead to slightly poorer performance metrics.\cite{powers2020evaluation}. figure 29 shows the comparison between different evaluation metrics
+\begin{figure}[ht!]
+  \raggedright
+  \includegraphics[angle=0,width=2in]{pdf/results.pdf}
+  \vspace{0pt}
+  \caption{\textbf{ }Table comparing results of the model}
+\end{figure}
+
+\section{Deployment}
+\subsection {Predicting Class}
+We created an intuitive Graphical User Interface (GUI) and incorporated our best-performing model using the Tkinter package, a Python graphical user interface standard. Tkinter serves as an interface to the Tk GUI toolkit, providing a simple, Python-focused method for creating desktop programs. Three essential inputs are intended to be accepted by the built application: Time Slot, City, and Country. It effectively provides a network performance forecast based on these inputs, classifying the output into four distinct levels: "Good," "Moderate," "Bad," and "Worse." The process of collecting network forecasts is streamlined by this user-friendly interface, making it accessible to a broad spectrum of users.
+
+Figure 30 shows the GUI application that we created and takes input parameters of  country, city, and time Slot, on providing the input the model will predict the network outage. 
+\begin{figure}[ht!]
+  \raggedright
+  \includegraphics[angle=0,width=2in]{pdf/s26.pdf}
+  \vspace{0pt}
+  \caption{\textbf{ }Deployed console application for prediction}
+\end{figure}
+
+Figure 31 shows that when the user gives input country = IN, city = Chennai, and time Slot = Late Afternoon, the model will able to predict a worse class successfully.  
+\begin{figure}[ht!]
+  \raggedright
+  \includegraphics[angle=0,width=2in]{pdf/s25.pdf}
+  \vspace{0pt}
+  \caption{\textbf{ }Showing predicted output for the provided input}
+\end{figure}
+\section*{Limitation}
+
+The machine learning algorithm performance comparison table points to several drawbacks. For example, the SVM has the lowest precision and F1 score and the longest training time, which may limit its application in scenarios requiring quick model training or precision-sensitive applications. Decision Trees may not be as useful for complex data patterns because they show fewer performance metrics. While exhibiting high precision and accuracy, Random Forest, XGBoost, and Ensemble Models have the potential to overfit and lack interpretability, which can be problematic in situations where transparent decision-making is required. These models are also complicated and may require a lot of resources to tune.
+
+\section*{Conclusion}
+
+By using both spatial and temporal data to reliably predict internet outages, this initiative greatly improves network management in the telecom industry. This development is expected to improve industry-wide consumer satisfaction and service dependability. Through the successful resolution of present network management issues, the project lays the foundation for future improvements in predictive maintenance and service quality. In addition to addressing current problems, this proactive and effective network management strategy opens the door for future improvements that will strengthen and rely on the telecommunications infrastructure.
+
+\section*{Future Scope}
+
+We only used information from Mozilla's telemetry network in this investigation. Nevertheless, a wider variety of data sources, such as other web browsers, ISPs, and telemetry sensors, can be added to this dataset. It may be possible to improve our models' training and get more accurate results by including these additional data sources. Furthermore, dynamic, up-to-date forecasts would be possible with the system's integration of real-time data. This would greatly increase the usefulness of the program. We can also give users and ISPs a more customized experience by hosting the application and creating customized dashboards. With the help of these personalized interfaces, users and ISPs alike would be able to make better use of the predictive insights and make more strategic and educated decisions about network optimization and maintenance. 
+
+\section*{Acknowledgment}
+
+%Dr. Reveryrand would like to acknowledge the funding by XLIM, Limoges, France. 
+The authors would like to thank Dr. Shih Yu. Chang  and Ms. Lina Louis for providing a wonderful opportunity and all the support they provided to carry out the research. The wonderful support provided by them proved to be invaluable  motivation for the team and a great study was conducted. 
+
+\section*{GitHub and YouTube Link}
+
+GitHub Link: \href{https://github.com/bxbpel13/Internet-Downtime-Prediction}
+
+YouTube Link: https://youtu.be/4Hg7u8NisAE\href{https://youtu.be/4Hg7u8NisAE}
+
+
+\bibliographystyle{plain}
+\bibliography{References.bib}
+
+
+\end{document}
+
+
+
+
+
+
